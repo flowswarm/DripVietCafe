@@ -31,12 +31,20 @@
 
 /* ── CART DRAWER ─────────────────────────────────────────── */
 .cart-drawer {
-  position: fixed; top: 0; right: -100%; width: 100%; max-width: 420px; height: 100%;
+  position: fixed; top: 0; right: 0; width: 100%; max-width: 420px; height: 100%;
   background: var(--bg, #faf7f2); z-index: 1001;
   box-shadow: -8px 0 40px rgba(0,0,0,0.12);
-  display: flex; flex-direction: column; transition: right 0.35s cubic-bezier(0.4,0,0.2,1);
+  display: flex; flex-direction: column;
+  /* Transform-based hiding — right:-100% has iOS Safari portrait bugs */
+  transform: translateX(100%);
+  visibility: hidden;
+  transition: transform 0.35s cubic-bezier(0.4,0,0.2,1), visibility 0s linear 0.35s;
 }
-.cart-drawer.active { right: 0; }
+.cart-drawer.active {
+  transform: translateX(0);
+  visibility: visible;
+  transition: transform 0.35s cubic-bezier(0.4,0,0.2,1), visibility 0s linear 0s;
+}
 
 
 .cart-drawer-header {

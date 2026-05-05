@@ -323,3 +323,7 @@ function attachCardListeners() {
 
 // Expose for checkout.html
 window._cart = { getItems: () => cart, getTotal: getCartTotal, clear: () => { cart = []; saveCart(); } };
+
+// Explicitly expose on window for iOS Safari inline onclick compatibility
+window.openCartDrawer  = openCartDrawer;
+window.closeCartDrawer = closeCartDrawer;
