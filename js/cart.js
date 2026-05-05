@@ -261,6 +261,17 @@ document.addEventListener('DOMContentLoaded', () => {
   injectCartHTML();
   renderCart();
   attachCardListeners();
+
+  // Always start with cart CLOSED regardless of any previous state
+  closeCartDrawer();
+
+  // Escape key closes cart or modal
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape') {
+      closeCartDrawer();
+      window.closeModal?.();
+    }
+  });
 });
 
 function injectCartHTML() {
