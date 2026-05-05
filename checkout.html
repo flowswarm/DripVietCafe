@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Checkout | Drip Vietnamese Cafe</title>
+  <meta name="description" content="Complete your order at Drip Vietnamese Cafe. Same-day pickup in Philadelphia's Chinatown.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/main.css">
+  <script src="https://js.stripe.com/v3/"></script>
+  <style>
+    .checkout-page { max-width: 960px; margin: 80px auto 60px; padding: 0 24px; display: grid; grid-template-columns: 1fr 380px; gap: 40px; }
+    .checkout-section { background: var(--white, #fff); border-radius: 16px; padding: 32px; border: 1px solid var(--border, #e8e2d8); }
+    .checkout-section h2 { font-family: 'Playfair Display', serif; font-size: 22px; margin: 0 0 24px; padding-bottom: 16px; border-bottom: 1px solid var(--border, #e8e2d8); }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .form-group { margin-bottom: 20px; }
+    .form-group label { display: block; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: var(--text-muted, #888); margin-bottom: 8px; }
+    .form-group input, .form-group select { width: 100%; padding: 13px 14px; border: 1.5px solid var(--border, #e8e2d8); border-radius: 8px; font-family: 'Inter', sans-serif; font-size: 15px; transition: border-color 0.2s; }
+    .form-group input:focus, .form-group select:focus { outline: none; border-color: var(--cta, #2d6a4f); }
+    .form-group select:disabled { background: #f5f5f5; color: #999; cursor: not-allowed; }
+    .no-slots-msg { color: #e53e3e; font-size: 13px; margin-top: 4px; display: none; }
+
+    /* Stripe card element */
+    #stripe-card-element {
+      padding: 14px; border: 1.5px solid var(--border, #e8e2d8); border-radius: 8px;
+      background: var(--white, #fff); transition: border-color 0.2s;
+    }
+    #stripe-card-element.StripeElement--focus { border-color: var(--cta, #2d6a4f); }
+    #stripe-card-errors { color: #e53e3e; font-size: 13px; margin-top: 8px; min-height: 20px; }
+
+    .mock-badge {
+      display: inline-flex; align-items: center; gap: 6px;
+      background: #fff3cd; color: #856404; padding: 6px 12px;
+      border-radius: 6px; font-size: 12px; margin-bottom: 20px; font-weight: 500;
+    }
+
+    .test-cards { background: #f0fdf4; border: 1px solid #bbf7d0; border-radius: 8px; padding: 16px; margin-bottom: 20px; }
+    .test-cards h4 { margin: 0 0 8px; font-size: 13px; color: #166534; }
+    .test-card-row { font-size: 12px; font-family: 'Courier New', monospace; color: #166534; margin: 4px 0; }
+
+    .place-order-btn {
+      width: 100%; padding: 18px; background: var(--cta, #2d6a4f); color: #fff;
+      border: none; border-radius: 10px; font-weight: 700; font-size: 15px;
+      letter-spacing: 0.05em; text-transform: uppercase; cursor: pointer;
+      transition: background 0.2s; margin-top: 8px;
+    }
+    .place-order-btn:hover { background: #245a42; }
+    .place-order-btn:disabled { background: #aaa; cursor: not-allowed; }
+
+    /* Order summary */
+    .summary-item { display: flex; justify-content: space-between; padding: 12px 0; border-bottom: 1px solid var(--border, #e8e2d8); }
+    .summary-item-left { flex: 1; }
+    .summary-item-name { font-weight: 600; font-size: 14px; }
+    .summary-item-customs { font-size: 12px; color: var(--text-muted, #888); margin-top: 2px; }
+    .summary-item-price { font-weight: 600; font-size: 14px; }
+    .summary-total { display: flex; justify-content: space-between; font-size: 20px; font-weight: 700; padding-top: 16px; }
+
+    /* Sticky summary on desktop */
+    .order-summary-col { position: sticky; top: 100px; align-self: start; }
+
+    /* Success state */
+    .success-screen { display: none; text-align: center; padding: 60px 24px; max-width: 500px; margin: 60px auto; }
+    .success-icon { font-size: 60px; margin-bottom: 16px; }
+    .success-screen h2 { font-family: 'Playfair Display', serif; font-size: 32px; margin: 0 0 12px; color: var(--cta, #2d6a4f); }
+    .success-order-num { background: var(--white, #fff); padding: 16px 24px; border-radius: 10px; border: 1px solid var(--border, #e8e2d8); display: inline-block; font-weight: 700; font-size: 20px; margin: 16px 0; }
+
+    @media (max-width: 768px) {
+      .checkout-page { grid-template-columns: 1fr; margin-top: 60px; }
+      .order-summary-col { position: static; }
+      .form-row { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <div class="header-inner">
+      <a href="index.html" class="logo-link" style="text-decoration:none; font-family:'Playfair Display',serif; font-size:20px; font-weight:700;">Drip</a>
+      <nav style="display:flex; gap:24px; align-items:center;">
+        <a href="menu.html" style="font-size:13px; letter-spacing:0.1em; text-transform:uppercase; text-decoration:none; color:inherit;">← Back to Menu</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <!-- CHECKOUT FORM -->
+    <div id="checkout-page" class="checkout-page">
+      <!-- Left: form -->
+      <div>
+        <div class="checkout-section" style="margin-bottom:24px;">
+          <h2>Your Details</h2>
+          <div class="form-row">
+            <div class="form-group">
+              <label>First Name</label>
+              <input type="text" id="first-name" placeholder="Jane" required>
+            </div>
+            <div class="form-group">
+              <label>Last Name</label>
+              <input type="text" id="last-name" placeholder="Doe" required>
+            </div>
+          </div>
+          <div class="form-group">
+            <label>Email — Confirmation will be sent here</label>
+            <input type="email" id="customer-email" placeholder="jane@example.com" required>
+          </div>
+        </div>
+
+        <div class="checkout-section" style="margin-bottom:24px;">
+          <h2>Pickup Time</h2>
+          <div class="form-group">
+            <label>Select a time (Tue–Sun, 9am–5pm)</label>
+            <select id="pickup-time-select">
+              <option value="">Loading available times...</option>
+            </select>
+            <div class="no-slots-msg" id="no-slots-msg">
+              ⚠️ Sorry, no more pickup slots available today. We're open Tuesday–Sunday, 9am–5pm.
+            </div>
+          </div>
+        </div>
+
+        <div class="checkout-section">
+          <h2>Payment</h2>
+          <div class="mock-badge">🧪 Test Mode — No real charge will be made</div>
+          <div class="test-cards">
+            <h4>Use these test card details:</h4>
+            <div class="test-card-row">Card Number: 4242 4242 4242 4242</div>
+            <div class="test-card-row">Expiry: Any future date &nbsp;|&nbsp; CVC: Any 3 digits</div>
+          </div>
+          <div class="form-group">
+            <label>Card Details</label>
+            <div id="stripe-card-element"></div>
+            <div id="stripe-card-errors"></div>
+          </div>
+          <button id="place-order-btn" class="place-order-btn">Place Order</button>
+        </div>
+      </div>
+
+      <!-- Right: summary -->
+      <div class="order-summary-col">
+        <div class="checkout-section">
+          <h2>Order Summary</h2>
+          <div id="summary-items"></div>
+          <div class="summary-total">
+            <span>Total</span>
+            <span id="summary-total">$0.00</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SUCCESS SCREEN -->
+    <div id="success-screen" class="success-screen">
+      <div class="success-icon">🌿</div>
+      <h2>Order Confirmed!</h2>
+      <p>We've received your order and sent a confirmation to your email.</p>
+      <div class="success-order-num" id="success-order-num">Order #–</div>
+      <p style="color:var(--text-muted,#888);">Pick up at <strong id="success-pickup-time">–</strong><br>
+      225 N 11th St, Philadelphia, PA 19107</p>
+      <a href="index.html" class="place-order-btn" style="display:inline-block; text-decoration:none; margin-top:24px; padding:14px 32px; width:auto;">Return Home</a>
+    </div>
+  </main>
+
+  <script>
+    // ── Load cart from localStorage ───────────────────────────
+    let cart = [];
+    try { cart = JSON.parse(localStorage.getItem('dripCart')) || []; } catch {}
+
+    if (cart.length === 0) {
+      alert('Your cart is empty!');
+      window.location.href = 'menu.html';
+    }
+
+    // ── Render order summary ──────────────────────────────────
+    const summaryEl = document.getElementById('summary-items');
+    const totalEl   = document.getElementById('summary-total');
+    let total = 0;
+
+    summaryEl.innerHTML = cart.map(item => {
+      total += item.price * item.quantity;
+      const c = item.customizations;
+      const customs = [c.temperature, c.milk, c.preparation, c.sugarPackets ? `${c.sugarPackets} sugar pkt` : null, c.liquidSugarShots ? `${c.liquidSugarShots} liquid shot` : null, c.specialInstructions ? `"${c.specialInstructions}"` : null].filter(Boolean).join(' · ');
+      return `<div class="summary-item">
+        <div class="summary-item-left">
+          <div class="summary-item-name">${item.name} x${item.quantity}</div>
+          ${customs ? `<div class="summary-item-customs">${customs}</div>` : ''}
+        </div>
+        <div class="summary-item-price">$${(item.price * item.quantity).toFixed(2)}</div>
+      </div>`;
+    }).join('');
+
+    totalEl.textContent = '$' + total.toFixed(2);
+
+    // ── Pickup time slots ─────────────────────────────────────
+    const pickupSelect = document.getElementById('pickup-time-select');
+    const noSlotsMsg   = document.getElementById('no-slots-msg');
+
+    function buildPickupSlots() {
+      const now = new Date();
+      if (now.getDay() === 1) return []; // Closed Monday
+      const slots = [];
+      const closeMin = 16 * 60 + 45;
+      const nowMin   = now.getHours() * 60 + now.getMinutes() + 15;
+      const startMin = Math.max(9 * 60, nowMin);
+      const firstSlot = Math.ceil(startMin / 15) * 15;
+      for (let m = firstSlot; m <= closeMin; m += 15) {
+        const h24  = Math.floor(m / 60);
+        const min  = m % 60;
+        const h12  = h24 > 12 ? h24 - 12 : (h24 === 0 ? 12 : h24);
+        const ampm = h24 >= 12 ? 'PM' : 'AM';
+        slots.push(`${h12}:${min.toString().padStart(2,'0')} ${ampm}`);
+      }
+      return slots;
+    }
+
+    const slots = buildPickupSlots();
+    if (slots.length === 0) {
+      pickupSelect.disabled = true;
+      pickupSelect.innerHTML = '<option>No slots available today</option>';
+      noSlotsMsg.style.display = 'block';
+      document.getElementById('place-order-btn').disabled = true;
+    } else {
+      pickupSelect.innerHTML = slots.map(s => `<option value="${s}">${s}</option>`).join('');
+    }
+
+    // ── Stripe setup ──────────────────────────────────────────
+    const STRIPE_PK = document.querySelector('meta[name="stripe-pk"]')?.content || 'pk_test_REPLACE_WITH_YOUR_PUBLISHABLE_KEY';
+    const stripe    = Stripe(STRIPE_PK);
+    const elements  = stripe.elements();
+    const cardEl    = elements.create('card', {
+      style: {
+        base: { fontFamily: "'Inter', sans-serif", fontSize: '15px', color: '#1a1a1a', '::placeholder': { color: '#aaa' } },
+        invalid: { color: '#e53e3e' }
+      }
+    });
+    cardEl.mount('#stripe-card-element');
+    cardEl.on('change', e => {
+      document.getElementById('stripe-card-errors').textContent = e.error ? e.error.message : '';
+    });
+
+    // ── Submit order ──────────────────────────────────────────
+    document.getElementById('place-order-btn').addEventListener('click', async () => {
+      const firstName = document.getElementById('first-name').value.trim();
+      const lastName  = document.getElementById('last-name').value.trim();
+      const email     = document.getElementById('customer-email').value.trim();
+      const pickupTime = pickupSelect.value;
+
+      if (!firstName || !lastName || !email || !pickupTime) {
+        alert('Please fill in all required fields.');
+        return;
+      }
+
+      const btn = document.getElementById('place-order-btn');
+      btn.disabled = true;
+      btn.textContent = 'Processing...';
+
+      try {
+        // 1. Create Stripe PaymentIntent
+        const intentRes = await fetch('/api/stripe-intent', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ amount: total, customer_email: email, customer_name: `${firstName} ${lastName}` })
+        });
+        const { clientSecret, paymentIntentId, error: intentErr } = await intentRes.json();
+        if (intentErr) throw new Error(intentErr);
+
+        // 2. Confirm Stripe payment
+        const { paymentIntent, error: stripeErr } = await stripe.confirmCardPayment(clientSecret, {
+          payment_method: { card: cardEl, billing_details: { name: `${firstName} ${lastName}`, email } }
+        });
+        if (stripeErr) throw new Error(stripeErr.message);
+
+        // 3. Submit order to our backend
+        const orderRes = await fetch('/api/orders', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            customer_name: `${firstName} ${lastName}`,
+            customer_email: email,
+            pickup_time: pickupTime,
+            total_amount: total,
+            stripe_payment_intent_id: paymentIntent.id,
+            items: cart
+          })
+        });
+        const orderData = await orderRes.json();
+        if (!orderData.success) throw new Error(orderData.error || 'Order failed');
+
+        // 4. Success
+        localStorage.removeItem('dripCart');
+        document.getElementById('checkout-page').style.display = 'none';
+        document.getElementById('success-screen').style.display = 'block';
+        document.getElementById('success-order-num').textContent = `Order #${orderData.orderNumber || orderData.orderId.slice(0,8).toUpperCase()}`;
+        document.getElementById('success-pickup-time').textContent = pickupTime;
+
+      } catch (err) {
+        document.getElementById('stripe-card-errors').textContent = err.message;
+        btn.disabled = false;
+        btn.textContent = 'Place Order';
+      }
+    });
+  </script>
+</body>
+</html>

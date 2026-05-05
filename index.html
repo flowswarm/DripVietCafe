@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Drip Vietnamese Cafe — Philadelphia's Chinatown</title>
+  <meta name="description" content="Drip Vietnamese Cafe in Philadelphia's Chinatown. Signature drinks, fresh Bánh Mì, and a vibe you'll want to come back for. Open Tue–Sun 9am–5pm."/>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;700&family=Inter:wght@300;400;500&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"/>
+  <link rel="stylesheet" href="css/main.css"/>
+  <link rel="stylesheet" href="css/cart.css" />
+</head>
+<body>
+
+<!-- ANNOUNCEMENT BAR -->
+<div class="announcement-bar">
+  <div class="ticker-track">
+    <div class="ticker-inner">
+      <span>Now Open: Tue – Sun 9am – 5pm</span>
+      <span>Coconut Foam Collection — New This Season</span>
+      <span>Philly's Favorite Coffee Shop — Philadelphia Inquirer 2025</span>
+      <span>Now Open: Tue – Sun 9am – 5pm</span>
+      <span>Coconut Foam Collection — New This Season</span>
+      <span>Philly's Favorite Coffee Shop — Philadelphia Inquirer 2025</span>
+    </div>
+  </div>
+  <a href="about.html#location" class="announcement-cta">Find Us</a>
+</div>
+
+<!-- HEADER -->
+<header class="site-header header-light">
+  <div class="nav-inner">
+    <a href="index.html" class="logo">
+      DRIP
+      <span class="logo-sub">Vietnamese Cafe · Philadelphia</span>
+    </a>
+    <nav class="nav-left">
+      <div class="nav-item">
+        <a href="menu.html">MENU <span class="chevron">▾</span></a>
+        <div class="dropdown-menu">
+          <a href="menu.html#drinks">Signature Drinks</a>
+          <a href="menu.html#coffee">Vietnamese Coffee</a>
+          <a href="menu.html#matcha">Matcha</a>
+          <a href="menu.html#food">Bánh Mì & Bites</a>
+          <a href="menu.html#seasonal">Seasonal Specials</a>
+        </div>
+      </div>
+      <div class="nav-item">
+        <a href="menu.html">DRINKS <span class="chevron">▾</span></a>
+        <div class="dropdown-menu">
+          <a href="menu.html">The Drippy</a>
+          <a href="menu.html">Pandan Latte</a>
+          <a href="menu.html">Strawberry Matcha</a>
+          <a href="menu.html">Ube Coffee</a>
+          <a href="menu.html">Banana Latte</a>
+          <a href="menu.html">Coconut Foam Series</a>
+        </div>
+      </div>
+      <div class="nav-item">
+        <a href="about.html">OUR STORY <span class="chevron">▾</span></a>
+        <div class="dropdown-menu">
+          <a href="about.html">About Drip</a>
+          <a href="about.html#location">Location & Hours</a>
+          <a href="about.html#press">Press</a>
+          <a href="about.html#community">Community</a>
+        </div>
+      </div>
+    </nav>
+    <div class="nav-right">
+      <a href="#" data-search>SEARCH</a>
+      <a href="https://www.instagram.com/dripvietcafe/" target="_blank">INSTAGRAM</a>
+      <a href="menu.html" class="btn" style="padding:10px 20px;font-size:9px;">Order Now</a>
+    </div>
+  <button class="hamburger" id="hamburger-btn" aria-label="Toggle menu" aria-expanded="false">
+    <span></span><span></span><span></span>
+  </button>
+  </div>
+</header>
+<!-- MOBILE NAV -->
+<nav class="mobile-nav" id="mobile-nav">
+  <a href="menu.html">Menu</a>
+  <a href="menu.html#drinks">Signature Drinks</a>
+  <a href="menu.html#coffee">Vietnamese Coffee</a>
+  <a href="menu.html#food">Bánh Mì &amp; Bites</a>
+  <a href="about.html">Our Story</a>
+  <a href="about.html#location">Location &amp; Hours</a>
+  <a href="https://www.instagram.com/dripvietcafe/" target="_blank">Instagram</a>
+  <a href="menu.html" class="mobile-nav-cta">Order Now →</a>
+</nav>
+
+<!-- SEARCH OVERLAY -->
+<div class="search-overlay">
+  <div class="search-box">
+    <input class="search-input" type="text" placeholder="Search our menu…"/>
+    <button class="search-close" aria-label="Close search">✕</button>
+  </div>
+</div>
+
+<!-- ── HERO: Full-viewport video ── -->
+<section class="hero hero-video">
+  <video
+    class="hero-video-bg"
+    src="assets/VietDripHeroloop2.mp4"
+    autoplay
+    muted
+    loop
+    playsinline
+    preload="auto"
+  ></video>
+  <div class="hero-overlay"></div>
+  <div class="hero-logo-container">
+    <div style="position: relative; display: flex; flex-direction: column; align-items: center; width: 100%; max-width: clamp(280px, 45vw, 600px);">
+      <img src="assets/drip_logo.png" alt="Drip Vietnamese Cafe Logo" class="hero-center-logo" style="max-width: 100%;">
+      <a href="menu.html" class="btn" style="position: absolute; bottom: 12%; pointer-events: auto; padding: 14px 32px; font-size: 13px; letter-spacing: 0.15em; border: 1px solid var(--cta); color: #fff; background: var(--cta); opacity: 0; animation: fadeUpLogo 1.5s cubic-bezier(0.16, 1, 0.3, 1) forwards; animation-delay: 0.4s;">Order Now</a>
+    </div>
+  </div>
+  <div class="hero-scroll" onclick="document.querySelector('.page-body > section:first-child').scrollIntoView({behavior:'smooth'})">
+    <svg viewBox="0 0 28 44" fill="none" stroke="currentColor" stroke-width="1.5">
+      <rect x="1" y="1" width="26" height="38" rx="13" stroke-opacity="0.4"/>
+      <circle cx="14" cy="14" r="3" fill="currentColor" opacity="0.5">
+        <animate attributeName="cy" values="14;26;14" dur="1.8s" repeatCount="indefinite"/>
+        <animate attributeName="opacity" values="0.5;0;0.5" dur="1.8s" repeatCount="indefinite"/>
+      </circle>
+    </svg>
+  </div>
+</section>
+
+<main class="page-body">
+
+  <!-- ── SECTION: 50/50 — Interior + Tagline ── -->
+  <!-- Caption source: "banana latte from Drip, hallelujah" -->
+  <section class="split reveal">
+    <div class="split-img ig-crop">
+      <img src="assets/banana_latte.jpg" alt="Drip Vietnamese Cafe — delicious banana latte"/>
+    </div>
+    <div class="split-content" style="position: relative; overflow: hidden; color: #fff;">
+      <video src="assets/Brewed Loop.mp4" autoplay loop muted playsinline style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; z-index: 0;"></video>
+      <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.4); z-index: 1;"></div>
+      <div style="position: relative; z-index: 2;">
+        <h2 style="color: #fff;">Brewed with Style.<br/>Flavored with Soul.</h2>
+        <p style="color: rgba(255,255,255,0.9);">Nestled in the heart of Philadelphia's Chinatown, Drip Vietnamese Cafe blends authentic Vietnamese coffee culture with bold, playful flavors — served fresh, every day.</p>
+        <a href="menu.html" class="btn" style="border-color: #fff; color: #fff;">Explore Our Menu</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── SECTION: Feature "Strawberry Matcha" ── -->
+  <!-- Caption source: "everyone knows that i loveeee a good cafe..." -->
+  <section style="display:grid;grid-template-columns:1fr 1fr;">
+    <div class="split-content reveal" style="order:1; position: relative; overflow: hidden; color: #fff;">
+      <img src="assets/huge_hit_bg.jpg" alt="Background image" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; z-index: 0;" />
+      <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 1;"></div>
+      <div style="position: relative; z-index: 2;">
+        <h2 style="color: #fff;">A Huge Hit<br/>With the Crowd</h2>
+        <p style="color: rgba(255,255,255,0.9);">Our Strawberry Matcha is a massive crowd favorite! Pair it with our delicious Chicken Bánh Mì for the perfect combo. Drinks come out fast, fresh, and bursting with flavor.</p>
+        <div style="display:flex;flex-direction:column;gap:10px;margin-bottom:32px;text-align:left;width:100%;max-width:320px;">
+          <div style="display:flex;align-items:center;gap:12px;font-size:13px;color: #fff;">🍓 <span>Strawberry Matcha</span></div>
+          <div style="display:flex;align-items:center;gap:12px;font-size:13px;color: #fff;">🥖 <span>Chicken Bánh Mì</span></div>
+          <div style="display:flex;align-items:center;gap:12px;font-size:13px;color: #fff;">⚡ <span>Fast & Fresh Service</span></div>
+        </div>
+        <a href="menu.html" class="btn" style="border-color: #fff; color: #fff;">Order Yours Now</a>
+      </div>
+    </div>
+    <div class="split-img ig-crop" style="order:2;">
+      <video src="assets/strawberry_matcha.mp4" autoplay loop muted playsinline style="width:100%; height:100%; object-fit:cover;"></video>
+    </div>
+  </section>
+
+  <!-- ── SECTION: SIGNATURE DRINKS CAROUSEL ── -->
+  <!-- Caption source: "Hello March 🍀 Coconut Matcha · Ube Coffee · Strawberry Matcha" -->
+  <section id="signature-sips" class="section reveal" style="position: relative; overflow: hidden;">
+    <video src="assets/SignatureSipsLoop.mp4" autoplay loop muted playsinline style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; z-index: 0;"></video>
+    <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(26,15,10,0.85); z-index: 1;"></div>
+    
+    <div style="position: relative; z-index: 2;">
+    <div class="section-header">
+      <h2 class="section-title serif">Signature Drips</h2>
+      <div class="carousel-nav">
+        <button class="carousel-btn prev" aria-label="Previous">‹</button>
+        <button class="carousel-btn next" aria-label="Next">›</button>
+      </div>
+    </div>
+    <div class="swiper product-swiper">
+      <div class="swiper-wrapper">
+
+        <!-- Card 1: The Drippy -->
+        <div class="swiper-slide">
+          <a href="menu.html" class="product-card">
+            <div class="product-card-img ig-crop">
+              <img src="assets/drip_choose.jpg" alt="The Drippy — Vietnamese iced coffee with coffee jelly and salted foam"/>
+            </div>
+            <div class="product-card-info">
+              <div class="product-card-name">The Drippy</div>
+              <div class="product-card-price">Vietnamese iced coffee · coffee jelly · salted foam</div>
+            </div>
+          </a>
+        </div>
+
+        <!-- Card 2: Strawberry Matcha -->
+        <div class="swiper-slide">
+          <a href="menu.html" class="product-card">
+            <div class="product-card-img ig-crop">
+              <span class="drink-tag">Fan Fave</span>
+              <img src="assets/drip_strawberry.jpg" alt="Strawberry Matcha Foam Vietnamese Coffee"/>
+            </div>
+            <div class="product-card-info">
+              <div class="product-card-name">Strawberry Matcha</div>
+              <div class="product-card-price">Matcha · strawberry foam · Vietnamese coffee</div>
+            </div>
+          </a>
+        </div>
+
+        <!-- Card 3: Ube Biscoff -->
+        <div class="swiper-slide">
+          <a href="menu.html" class="product-card">
+            <div class="product-card-img ig-crop">
+              <span class="drink-tag" style="background:var(--accent-purple);">Limited</span>
+              <img src="assets/drip_ube.jpg" alt="Ube Biscoff — Limited Time"/>
+            </div>
+            <div class="product-card-info">
+              <div class="product-card-name">Ube Biscoff</div>
+              <div class="product-card-price">Limited time · one bite and you're hooked</div>
+            </div>
+          </a>
+        </div>
+
+        <!-- Card 4: Coconut Foam -->
+        <div class="swiper-slide">
+          <a href="menu.html" class="product-card">
+            <div class="product-card-img ig-crop">
+              <span class="drink-tag">New</span>
+              <img src="assets/drip_coconut.jpg" alt="Coconut Foam Collection"/>
+            </div>
+            <div class="product-card-info">
+              <div class="product-card-name">Coconut Pandan Latte</div>
+              <div class="product-card-price">Pandan milk · black drip · coconut foam</div>
+            </div>
+          </a>
+        </div>
+
+        <!-- Card 5: Banana Latte -->
+        <div class="swiper-slide">
+          <a href="menu.html" class="product-card">
+            <div class="product-card-img ig-crop">
+              <span class="drink-tag">Best Seller</span>
+              <img src="assets/drip_banana.jpg" alt="Banana Latte — one of our best sellers"/>
+            </div>
+            <div class="product-card-info">
+              <div class="product-card-name">Banana Latte</div>
+              <div class="product-card-price">Hallelujah. One of our best sellers.</div>
+            </div>
+          </a>
+        </div>
+
+        <!-- Card 6: Drip + Cookies -->
+        <div class="swiper-slide">
+          <a href="menu.html" class="product-card">
+            <div class="product-card-img ig-crop">
+              <img src="assets/drip_cookies.jpg" alt="Drip drinks with Ube Biscoff and Pandan cookies"/>
+            </div>
+            <div class="product-card-info">
+              <div class="product-card-name">Drip + Cookies</div>
+              <div class="product-card-price">Cool people drink drip… and grab a cookie too</div>
+            </div>
+          </a>
+        </div>
+      </div>
+    </div>
+    </div>
+  </section>
+
+  <!-- ── SECTION: 3-COLUMN LOOKBOOK ── -->
+  <!-- Caption source: "Hello March" three drinks / "Choose your player" outdoor Chinatown / cookies + drip -->
+  <section class="lookbook reveal">
+    <div class="lookbook-cell ig-crop">
+      <img src="assets/lookbook_1.jpg" alt="Drip Vietnamese Cafe"/>
+    </div>
+    <div class="lookbook-cell ig-crop">
+      <img src="assets/lookbook_2.jpg" alt="Drip Vietnamese Cafe"/>
+    </div>
+  </section>
+
+  <!-- ── SECTION: MADE TO ORDER BANNER → "Personalize / Monogram" = "Customize your order" ── -->
+  <!-- Caption source: Coconut Foam launch + Ube Biscoff new flavor energy -->
+  <section class="banner reveal">
+    <div class="banner-bg multi-image">
+      <img src="assets/made_for_you_bg.jpg" alt="Drip Vietnamese Cafe"/>
+      <img src="assets/made_for_you_bg_2.jpg" alt="Drip Vietnamese Cafe"/>
+      <img src="assets/made_for_you_bg_3.jpg" alt="Drip Vietnamese Cafe"/>
+    </div>
+    <div class="banner-overlay"></div>
+    <div class="banner-content">
+      <p class="banner-eyebrow">Your cup, your way</p>
+      <h2 class="banner-title">Made<br/>Just<br/>for You</h2>
+      <p class="banner-sub">Customize every sip to match your mood</p>
+      <p class="banner-body">From the foam level to the sweetness, every Drip is crafted to your preference. Tell us how you like it — we'll make it perfect.</p>
+      <a href="menu.html" class="btn">Build Your Drip</a>
+    </div>
+  </section>
+
+  <!-- ── SECTION: AS SEEN IN / AWARDS ── -->
+  <!-- Caption source: "Feeling so grateful — Drip Vietnamese Cafe just took 3rd place in Philly's Best Coffee Shops" — Philadelphia Inquirer 2025 -->
+  <section class="press reveal">
+    <p class="press-label">As Seen In &amp; Recognized By</p>
+    <div class="press-logos">
+      <span class="press-logo sm" style="font-family:'Inter',sans-serif;">The Philadelphia Inquirer</span>
+      <span class="press-logo sm" style="font-family:'Inter',sans-serif;">Philly Favorites 2025</span>
+      <span class="press-logo sm" style="font-family:'Inter',sans-serif;">Visit Philly</span>
+      <span class="press-logo" style="font-size:14px;font-family:'Inter',sans-serif;font-weight:700;">Yelp Top Spots</span>
+      <span class="press-logo sm" style="font-family:'Inter',sans-serif;">Eater Philadelphia</span>
+    </div>
+    <!-- Award badge -->
+    <div style="margin-top:48px;display:flex;justify-content:center;">
+      <div style="text-align:center;max-width:400px;padding:32px 40px;border:1px solid var(--border);">
+        <div style="font-size:32px;margin-bottom:8px;">🏆</div>
+        <p style="font-family:'Playfair Display',serif;font-size:22px;margin-bottom:8px;">3rd Place</p>
+        <p style="font-size:11px;letter-spacing:0.15em;text-transform:uppercase;color:var(--text-muted);">Philly's Best Coffee Shops · Philadelphia Inquirer · 2025</p>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<!-- FOOTER -->
+<footer class="site-footer">
+  <div class="footer-grid">
+    <div class="footer-col">
+      <h4>Drip</h4>
+      <ul>
+        <li><a href="about.html">Our Story</a></li>
+        <li><a href="menu.html">Full Menu</a></li>
+        <li><a href="about.html#location">Location & Hours</a></li>
+        <li><a href="about.html#press">Press & Awards</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Menu</h4>
+      <ul>
+        <li><a href="menu.html#drinks">Signature Drinks</a></li>
+        <li><a href="menu.html#coffee">Vietnamese Coffee</a></li>
+        <li><a href="menu.html#matcha">Matcha</a></li>
+        <li><a href="menu.html#food">Bánh Mì & Bites</a></li>
+        <li><a href="menu.html#seasonal">Seasonal Specials</a></li>
+        <li><a href="menu.html#cookies">Cookies</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Visit Us</h4>
+      <p>
+        225 N 11th St<br/>
+        Philadelphia, PA 19107<br/>
+        (Chinatown)<br/><br/>
+        <strong style="opacity:1;">Tue – Sun: 9am – 5pm</strong><br/>
+        Monday: Closed<br/><br/>
+        <a href="https://www.instagram.com/dripvietcafe/" target="_blank">@dripvietcafe</a>
+      </p>
+    </div>
+    <div class="footer-col">
+      <h4>Stay Drippy</h4>
+      <p class="footer-newsletter-text">Get updates on new seasonal drinks, pop-ups, and community events.</p>
+      <form class="newsletter-form" onsubmit="return false;">
+        <input class="newsletter-input" type="email" placeholder="Your email address" aria-label="Email address"/>
+        <button class="newsletter-btn" type="submit">Subscribe</button>
+      </form>
+      <div class="newsletter-check">
+        <input type="checkbox" id="nl-agree"/>
+        <label for="nl-agree">I'd like to receive updates from Drip Vietnamese Cafe.</label>
+      </div>
+      <div class="social-row">
+        <a href="https://www.instagram.com/dripvietcafe/" target="_blank" class="social-icon" aria-label="Instagram">📷</a>
+        <a href="#" class="social-icon" aria-label="Facebook">f</a>
+        <a href="#" class="social-icon" aria-label="TikTok">♪</a>
+        <a href="#" class="social-icon" aria-label="Yelp">★</a>
+      </div>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    © 2026 Drip Vietnamese Cafe · 225 N 11th St, Philadelphia PA 19107 · Family-Owned &amp; Operated
+  <br><a href="admin.html" style="opacity:0.25; font-size:11px; display:inline-block; margin-top:8px; text-decoration:none; color:inherit;">Admin Portal</a></div>
+</footer>
+
+<button class="scroll-top" aria-label="Scroll to top">↑</button>
+<button class="chat-bubble" aria-label="Open chat">💬</button>
+
+<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+<script src="js/cart.js"></script>
+  <script src="js/main.js"></script>
+<script>
+(function() {
+  var btn = document.getElementById('hamburger-btn');
+  var nav = document.getElementById('mobile-nav');
+  if (!btn || !nav) return;
+  btn.addEventListener('click', function() {
+    var open = nav.classList.toggle('open');
+    btn.classList.toggle('open', open);
+    btn.setAttribute('aria-expanded', String(open));
+  });
+  nav.querySelectorAll('a').forEach(function(a) {
+    a.addEventListener('click', function() {
+      nav.classList.remove('open');
+      btn.classList.remove('open');
+      btn.setAttribute('aria-expanded', 'false');
+    });
+  });
+})();
+</script>
+</body>
+</html>

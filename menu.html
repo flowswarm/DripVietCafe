@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Menu — Drip Vietnamese Cafe</title>
+  <meta name="description"
+    content="Drip Vietnamese Cafe menu — signature Vietnamese coffee, matcha, pandan lattes, Bánh Mì sandwiches, and cookies. Philadelphia's Chinatown." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;700&family=Inter:wght@300;400;500&display=swap"
+    rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+  <link rel="stylesheet" href="css/main.css" />
+  <link rel="stylesheet" href="css/cart.css" />
+</head>
+
+<body>
+
+  <!-- ANNOUNCEMENT BAR -->
+  <div class="announcement-bar">
+    <div class="ticker-track">
+      <div class="ticker-inner">
+        <span>Now Open: Tue – Sun 9am – 5pm</span>
+        <span>Coconut Foam Collection — Try it Now</span>
+        <span>Limited Time: Ube Biscoff Cookie</span>
+        <span>Now Open: Tue – Sun 9am – 5pm</span>
+        <span>Coconut Foam Collection — Try it Now</span>
+        <span>Limited Time: Ube Biscoff Cookie</span>
+      </div>
+    </div>
+    <a href="about.html#location" class="announcement-cta">Find Us</a>
+  </div>
+
+  <!-- HEADER -->
+  <header class="site-header">
+    <div class="nav-inner">
+      <a href="index.html" class="logo">DRIP<span class="logo-sub">Vietnamese Cafe · Philadelphia</span></a>
+      <nav class="nav-left">
+        <div class="nav-item"><a href="menu.html">MENU <span class="chevron">▾</span></a>
+          <div class="dropdown-menu"><a href="menu.html#drinks">Signature Drinks</a><a
+              href="menu.html#coffee">Vietnamese Coffee</a><a href="menu.html#matcha">Matcha</a><a
+              href="menu.html#food">Bánh Mì & Bites</a><a href="menu.html#seasonal">Seasonal Specials</a></div>
+        </div>
+        <div class="nav-item"><a href="menu.html">DRINKS <span class="chevron">▾</span></a>
+          <div class="dropdown-menu"><a href="menu.html">The Drippy</a><a href="menu.html">Pandan Latte</a><a
+              href="menu.html">Strawberry Matcha</a><a href="menu.html">Ube Coffee</a><a href="menu.html">Banana
+              Latte</a><a href="menu.html">Coconut Foam Series</a></div>
+        </div>
+        <div class="nav-item"><a href="about.html">OUR STORY <span class="chevron">▾</span></a>
+          <div class="dropdown-menu"><a href="about.html">About Drip</a><a href="about.html#location">Location &
+              Hours</a><a href="about.html#press">Press</a></div>
+        </div>
+      </nav>
+      <div class="nav-right">
+        <a href="#" data-search>SEARCH</a>
+        <a href="https://www.instagram.com/dripvietcafe/" target="_blank">INSTAGRAM</a>
+        <a href="menu.html" class="btn" style="padding:10px 20px;font-size:9px;">Order Now</a>
+      </div>
+    </div>
+  </header>
+<!-- MOBILE NAV -->
+<nav class="mobile-nav" id="mobile-nav">
+  <a href="menu.html">Menu</a>
+  <a href="menu.html#drinks">Signature Drinks</a>
+  <a href="menu.html#coffee">Vietnamese Coffee</a>
+  <a href="menu.html#food">Bánh Mì &amp; Bites</a>
+  <a href="about.html">Our Story</a>
+  <a href="about.html#location">Location &amp; Hours</a>
+  <a href="https://www.instagram.com/dripvietcafe/" target="_blank">Instagram</a>
+  <a href="menu.html" class="mobile-nav-cta">Order Now →</a>
+</nav>
+
+  <div class="search-overlay">
+    <div class="search-box"><input class="search-input" type="text" placeholder="Search our menu…" /><button
+        class="search-close">✕</button></div>
+  </div>
+
+  <main class="page-body">
+
+    <!-- MENU HERO -->
+    <div class="menu-hero">
+      <h1 class="serif">Our Menu</h1>
+      <p>Crafted fresh daily · 225 N 11th St, Philadelphia · Tue–Sun 9am–5pm</p>
+    </div>
+
+    <!-- MENU TABS -->
+    <div class="menu-tabs" id="menuTabs">
+      <button class="menu-tab active" data-tab="all">All</button>
+      <button class="menu-tab" data-tab="drinks">Signature Drinks</button>
+      <button class="menu-tab" data-tab="coffee">Vietnamese Coffee</button>
+      <button class="menu-tab" data-tab="matcha">Matcha</button>
+      <button class="menu-tab" data-tab="food">Food & Bites</button>
+      <button class="menu-tab" data-tab="seasonal">Seasonal</button>
+    </div>
+
+    <!-- MENU GRID -->
+    <div class="menu-grid" id="menuGrid" style="padding-top:2px;">
+
+      <!-- 1: The Drippy -->
+      <div class="menu-card reveal" data-tab="coffee drinks">
+        <div class="menu-card-img ig-crop">
+          <span class="menu-badge badge-popular">Crowd Fave</span>
+          <img src="assets/drip_choose.jpg"
+            alt="The Drippy — Vietnamese iced coffee with coffee jelly and salted foam" />
+        </div>
+        <div class="menu-card-info">
+          <div class="menu-card-name">The Drippy</div>
+          <div class="menu-card-desc">Vietnamese iced coffee with house coffee jelly and salted cream foam. The one that
+            started it all.</div>
+          <div class="menu-card-price">$7</div>
+        </div>
+      </div>
+
+      <!-- 2: Strawberry Matcha Foam -->
+      <div class="menu-card reveal" data-tab="matcha drinks">
+        <div class="menu-card-img ig-crop">
+          <span class="menu-badge badge-popular">Fan Fave</span>
+          <img src="assets/drip_strawberry.jpg" alt="Strawberry Matcha Foam Vietnamese Coffee" />
+        </div>
+        <div class="menu-card-info">
+          <div class="menu-card-name">Strawberry Matcha</div>
+          <div class="menu-card-desc">Still iced. Always. Premium matcha layered with fresh strawberry foam. Saw 30
+            people order this in one sitting — just sayin'.</div>
+          <div class="menu-card-price">$8</div>
+        </div>
+      </div>
+
+      <!-- 3: Pandan Latte -->
+      <div class="menu-card reveal" data-tab="drinks">
+        <div class="menu-card-img ig-crop">
+          <span class="menu-badge badge-new">New</span>
+          <img src="assets/drip_coconut.jpg" alt="Pandan Latte with Coconut Foam" />
+        </div>
+        <div class="menu-card-info">
+          <div class="menu-card-name">Pandan Latte</div>
+          <div class="menu-card-desc">Pandan milk with black drip and silky coconut foam on top. Aromatic, earthy, and
+            totally obsession-worthy.</div>
+          <div class="menu-card-price">$8</div>
+        </div>
+      </div>
+
+      <!-- 4: Ube Coffee -->
+      <div class="menu-card reveal" data-tab="coffee drinks">
+        <div class="menu-card-img ig-crop">
+          <img src="assets/drip_ube_coffee.jpg"
+            alt="Ube Vietnamese Coffee — creamy ube foam topped Vietnamese coffee" />
+        </div>
+        <div class="menu-card-info">
+          <div class="menu-card-name">Ube Coffee</div>
+          <div class="menu-card-desc">Vietnamese coffee topped with creamy ube foam — the drink everyone's obsessed
+            with. You won't regret it.</div>
+          <div class="menu-card-price">$8</div>
+        </div>
+      </div>
+
+      <!-- 5: Banana Latte -->
+      <div class="menu-card reveal" data-tab="drinks">
+        <div class="menu-card-img ig-crop">
+          <span class="menu-badge badge-popular">Best Seller</span>
+          <img src="assets/drip_banana.jpg" alt="Banana Latte — one of our best sellers" />
+        </div>
+        <div class="menu-card-info">
+          <div class="menu-card-name">Banana Latte</div>
+          <div class="menu-card-desc">Banana latte from Drip, hallelujah. Rich espresso with real banana. One of our
+            undisputed best sellers.</div>
+          <div class="menu-card-price">$7.50</div>
+        </div>
+      </div>
+
+      <!-- 6: Drips Mystery -->
+      <div class="menu-card reveal" data-tab="drinks seasonal">
+        <div class="menu-card-img ig-crop">
+          <span class="menu-badge badge-new">Mystery</span>
+          <img src="assets/drip_mystery.jpg" alt="Drips Mystery — you will want all three" />
+        </div>
+        <div class="menu-card-info">
+          <div class="menu-card-name">Drips Mystery</div>
+          <div class="menu-card-desc">Warning: you will want all three. Don't say we didn't tell you. Ask your barista
+            what's in it today.</div>
+          <div class="menu-card-price">$7</div>
+        </div>
+      </div>
+
+      <!-- 7: Ube Biscoff Cookie -->
+      <div class="menu-card reveal" data-tab="food seasonal">
+        <div class="menu-card-img ig-crop">
+          <span class="menu-badge badge-limited">Limited</span>
+          <img src="assets/drip_ube.jpg" alt="Ube Biscoff Cookie — limited time" />
+        </div>
+        <div class="menu-card-info">
+          <div class="menu-card-name">Ube Biscoff Cookie</div>
+          <div class="menu-card-desc">NEW FLAVOR. One bite and you're hooked. Ube cookie with a Biscoff crown. Limited
+            time only.</div>
+          <div class="menu-card-price">$4</div>
+        </div>
+      </div>
+
+      <!-- 8: Drip + Cookies Platter -->
+      <div class="menu-card reveal" data-tab="food">
+        <div class="menu-card-img ig-crop">
+          <img src="assets/drip_cookies.jpg" alt="Drip and cookies — Ube Biscoff, Pandan crinkle, chocolate chip" />
+        </div>
+        <div class="menu-card-info">
+          <div class="menu-card-name">Cookie Trio</div>
+          <div class="menu-card-desc">Cool people drink drip… and grab a cookie too. Ube Biscoff · Pandan Crinkle ·
+            Chocolate Chip. All banger items.</div>
+          <div class="menu-card-price">$10</div>
+        </div>
+      </div>
+
+      <!-- 9: Chicken Bánh Mì -->
+      <div class="menu-card reveal" data-tab="food">
+        <div class="menu-card-img" style="background:#e8e0d5;display:flex;align-items:center;justify-content:center;">
+          <div
+            style="font-size:80px;text-align:center;width:100%;height:100%;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,#f5e8d5,#e8d5b8);">
+            🥖</div>
+        </div>
+        <div class="menu-card-info">
+          <div class="menu-card-name">Chicken Bánh Mì</div>
+          <div class="menu-card-desc">A HUGE hit — voted must-try by regulars and first-timers alike. Fresh baguette,
+            grilled chicken, pickled daikon, jalapeño, cilantro.</div>
+          <div class="menu-card-price">$9</div>
+        </div>
+      </div>
+
+    </div>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="site-footer">
+    <div class="footer-grid">
+      <div class="footer-col">
+        <h4>Drip</h4>
+        <ul>
+          <li><a href="about.html">Our Story</a></li>
+          <li><a href="menu.html">Full Menu</a></li>
+          <li><a href="about.html#location">Location & Hours</a></li>
+          <li><a href="about.html#press">Press & Awards</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Menu</h4>
+        <ul>
+          <li><a href="menu.html#drinks">Signature Drinks</a></li>
+          <li><a href="menu.html#coffee">Vietnamese Coffee</a></li>
+          <li><a href="menu.html#matcha">Matcha</a></li>
+          <li><a href="menu.html#food">Bánh Mì & Bites</a></li>
+          <li><a href="menu.html#seasonal">Seasonal Specials</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Visit Us</h4>
+        <p>225 N 11th St<br />Philadelphia, PA 19107<br />(Chinatown)<br /><br /><strong style="opacity:1;">Tue – Sun:
+            9am – 5pm</strong><br />Monday: Closed<br /><br /><a href="https://www.instagram.com/dripvietcafe/"
+            target="_blank">@dripvietcafe</a></p>
+      </div>
+      <div class="footer-col">
+        <h4>Stay Drippy</h4>
+        <p class="footer-newsletter-text">Get updates on new seasonal drinks, pop-ups, and events.</p>
+        <form class="newsletter-form" onsubmit="return false;"><input class="newsletter-input" type="email"
+            placeholder="Your email" /><button class="newsletter-btn">Subscribe</button></form>
+        <div class="newsletter-check"><input type="checkbox" id="nl2" /><label for="nl2">I'd like updates from Drip
+            Vietnamese Cafe.</label></div>
+        <div class="social-row"><a href="https://www.instagram.com/dripvietcafe/" target="_blank"
+            class="social-icon">📷</a><a href="#" class="social-icon">f</a><a href="#" class="social-icon">♪</a><a
+            href="#" class="social-icon">★</a></div>
+      </div>
+    </div>
+    <div class="footer-bottom">© 2026 Drip Vietnamese Cafe · 225 N 11th St, Philadelphia PA 19107 · Family-Owned &amp;
+      Operated<br/><a href="admin.html" style="opacity: 0.3; font-size: 10px; margin-top: 10px; display: inline-block;">Admin Portal</a></div>
+  </footer>
+
+  <button class="scroll-top" aria-label="Scroll to top">↑</button>
+  <button class="chat-bubble">💬</button>
+
+  <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+  <script src="js/cart.js"></script>
+  <script src="js/main.js"></script>
+  <script>
+    // Menu tab filtering
+    const tabs = document.querySelectorAll('.menu-tab');
+    const cards = document.querySelectorAll('.menu-card');
+    tabs.forEach(tab => {
+      tab.addEventListener('click', () => {
+        tabs.forEach(t => t.classList.remove('active'));
+        tab.classList.add('active');
+        const filter = tab.dataset.tab;
+        cards.forEach(card => {
+          const tags = card.dataset.tab || 'all';
+          const show = filter === 'all' || tags.includes(filter);
+          card.style.display = show ? '' : 'none';
+        });
+      });
+    });
+  </script>
+<script>
+(function() {
+  var btn = document.getElementById('hamburger-btn');
+  var nav = document.getElementById('mobile-nav');
+  if (!btn || !nav) return;
+  btn.addEventListener('click', function() {
+    var open = nav.classList.toggle('open');
+    btn.classList.toggle('open', open);
+    btn.setAttribute('aria-expanded', String(open));
+  });
+  nav.querySelectorAll('a').forEach(function(a) {
+    a.addEventListener('click', function() {
+      nav.classList.remove('open');
+      btn.classList.remove('open');
+      btn.setAttribute('aria-expanded', 'false');
+    });
+  });
+})();
+</script>
+</body>
+
+</html>

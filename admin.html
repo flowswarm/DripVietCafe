@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin | Drip Vietnamese Cafe</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/main.css">
+  <style>
+    :root { --admin-green: #2d6a4f; --admin-light: #f0fdf4; }
+    body { font-family: 'Inter', sans-serif; background: #f5f5f5; color: #1a1a1a; }
+
+    /* LOGIN */
+    .login-wrap { min-height: 100vh; display: flex; align-items: center; justify-content: center; background: #1a1a1a; }
+    .login-card { background: #fff; width: 100%; max-width: 400px; border-radius: 16px; padding: 48px 40px; text-align: center; box-shadow: 0 24px 64px rgba(0,0,0,0.3); }
+    .login-logo { font-family: 'Playfair Display', serif; font-size: 28px; font-weight: 700; color: var(--admin-green); margin-bottom: 4px; }
+    .login-sub  { font-size: 12px; text-transform: uppercase; letter-spacing: 0.15em; color: #888; margin-bottom: 36px; }
+    .login-card input { width: 100%; padding: 13px 16px; margin-bottom: 14px; border: 1.5px solid #e0e0e0; border-radius: 8px; font-size: 15px; font-family: 'Inter', sans-serif; }
+    .login-card input:focus { outline: none; border-color: var(--admin-green); }
+    .login-btn { width: 100%; padding: 15px; background: var(--admin-green); color: #fff; border: none; border-radius: 8px; font-size: 14px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; cursor: pointer; }
+    .login-error { color: #e53e3e; font-size: 13px; margin-top: 10px; min-height: 20px; }
+
+    /* DASHBOARD */
+    .dashboard { display: none; }
+    .sidebar {
+      position: fixed; top: 0; left: 0; width: 220px; height: 100vh;
+      background: #1a1a1a; color: #fff; padding: 32px 0; display: flex; flex-direction: column;
+    }
+    .sidebar-logo { padding: 0 24px 32px; border-bottom: 1px solid rgba(255,255,255,0.1); }
+    .sidebar-logo h1 { font-family: 'Playfair Display', serif; font-size: 22px; margin: 0 0 2px; color: #fff; }
+    .sidebar-logo p  { font-size: 10px; text-transform: uppercase; letter-spacing: 0.15em; color: rgba(255,255,255,0.5); margin: 0; }
+    .sidebar nav { padding: 24px 0; flex: 1; }
+    .nav-btn {
+      display: flex; align-items: center; gap: 10px; width: 100%; padding: 12px 24px;
+      background: none; border: none; color: rgba(255,255,255,0.7); text-align: left;
+      font-family: 'Inter', sans-serif; font-size: 13px; font-weight: 500; cursor: pointer;
+      transition: background 0.2s, color 0.2s;
+    }
+    .nav-btn:hover, .nav-btn.active { background: rgba(255,255,255,0.08); color: #fff; }
+    .nav-btn.active { border-right: 3px solid var(--admin-green); }
+    .sidebar-footer { padding: 24px; border-top: 1px solid rgba(255,255,255,0.1); }
+    .logout-btn { width: 100%; padding: 10px; background: rgba(255,255,255,0.07); color: rgba(255,255,255,0.6); border: none; border-radius: 6px; cursor: pointer; font-size: 12px; transition: background 0.2s; }
+    .logout-btn:hover { background: rgba(229,62,62,0.3); color: #fff; }
+
+    .main-content { margin-left: 220px; padding: 32px; min-height: 100vh; }
+    .page-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 28px; }
+    .page-title { font-family: 'Playfair Display', serif; font-size: 28px; margin: 0; }
+
+    /* TABS */
+    .tab-panel { display: none; }
+    .tab-panel.active { display: block; }
+
+    /* STATS ROW */
+    .stats-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-bottom: 28px; }
+    .stat-card { background: #fff; border-radius: 12px; padding: 20px; box-shadow: 0 2px 8px rgba(0,0,0,0.06); }
+    .stat-label { font-size: 11px; text-transform: uppercase; letter-spacing: 0.1em; color: #888; margin-bottom: 8px; }
+    .stat-value { font-size: 28px; font-weight: 700; color: var(--admin-green); }
+
+    /* ORDERS TABLE */
+    .card { background: #fff; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.06); overflow: hidden; }
+    .card-header { padding: 20px 24px; border-bottom: 1px solid #f0f0f0; display: flex; justify-content: space-between; align-items: center; }
+    .card-title { font-weight: 700; font-size: 16px; margin: 0; }
+    table { width: 100%; border-collapse: collapse; }
+    th { padding: 12px 20px; text-align: left; font-size: 11px; text-transform: uppercase; letter-spacing: 0.08em; color: #888; border-bottom: 1px solid #f0f0f0; background: #fafafa; }
+    td { padding: 14px 20px; font-size: 14px; border-bottom: 1px solid #f5f5f5; vertical-align: middle; }
+    tr:last-child td { border-bottom: none; }
+    tr:hover td { background: #fafefa; }
+
+    .badge { display: inline-block; padding: 3px 10px; border-radius: 12px; font-size: 11px; font-weight: 700; text-transform: uppercase; }
+    .badge-pending   { background: #fef3c7; color: #92400e; }
+    .badge-ready     { background: #d1fae5; color: #065f46; }
+    .badge-completed { background: #e0e7ff; color: #3730a3; }
+    .badge-cancelled { background: #fee2e2; color: #991b1b; }
+
+    .status-select { padding: 6px 8px; border: 1px solid #e0e0e0; border-radius: 6px; font-size: 12px; }
+
+    /* MENU MANAGER */
+    .menu-manager-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 16px; }
+    .menu-manager-card { background: #fff; border-radius: 12px; padding: 20px; box-shadow: 0 2px 8px rgba(0,0,0,0.06); }
+    .menu-manager-name { font-weight: 700; font-size: 16px; margin-bottom: 4px; }
+    .menu-manager-category { font-size: 11px; text-transform: uppercase; letter-spacing: 0.08em; color: #888; margin-bottom: 16px; }
+    .menu-manager-actions { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; }
+    .price-input { padding: 8px 12px; border: 1px solid #e0e0e0; border-radius: 6px; font-size: 14px; width: 90px; }
+    .save-price-btn { padding: 8px 14px; background: var(--admin-green); color: #fff; border: none; border-radius: 6px; font-size: 12px; cursor: pointer; font-weight: 600; }
+    .availability-toggle { display: flex; align-items: center; gap: 8px; font-size: 13px; cursor: pointer; margin-top: 10px; }
+    .toggle-switch { position: relative; width: 40px; height: 22px; }
+    .toggle-switch input { opacity: 0; width: 0; height: 0; }
+    .toggle-slider { position: absolute; inset: 0; background: #ccc; border-radius: 22px; transition: 0.3s; cursor: pointer; }
+    .toggle-slider:before { position: absolute; content: ''; height: 16px; width: 16px; left: 3px; bottom: 3px; background: #fff; border-radius: 50%; transition: 0.3s; }
+    input:checked + .toggle-slider { background: var(--admin-green); }
+    input:checked + .toggle-slider:before { transform: translateX(18px); }
+
+    /* EXPORT */
+    .export-section { background: #fff; border-radius: 12px; padding: 32px; box-shadow: 0 2px 8px rgba(0,0,0,0.06); max-width: 500px; }
+    .export-section h3 { margin: 0 0 20px; }
+    .export-group { margin-bottom: 16px; }
+    .export-group label { display: block; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: #888; margin-bottom: 6px; }
+    .export-group input { padding: 10px 12px; border: 1px solid #e0e0e0; border-radius: 6px; font-size: 14px; }
+    .export-btn { padding: 14px 28px; background: var(--admin-green); color: #fff; border: none; border-radius: 8px; font-weight: 700; cursor: pointer; font-size: 14px; }
+
+    @media (max-width: 900px) {
+      .sidebar { display: none; }
+      .main-content { margin-left: 0; }
+      .stats-row { grid-template-columns: repeat(2, 1fr); }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ── LOGIN ──────────────────────────────────────────────── -->
+<div id="login-wrap" class="login-wrap">
+  <div class="login-card">
+    <div class="login-logo">Drip</div>
+    <div class="login-sub">Admin Portal</div>
+    <form id="login-form">
+      <input type="text" id="username" placeholder="Username" autocomplete="username" required>
+      <input type="password" id="password" placeholder="Password" autocomplete="current-password" required>
+      <button type="submit" class="login-btn">Sign In</button>
+      <div class="login-error" id="login-error"></div>
+    </form>
+  </div>
+</div>
+
+<!-- ── DASHBOARD ──────────────────────────────────────────── -->
+<div id="dashboard" class="dashboard">
+  <aside class="sidebar">
+    <div class="sidebar-logo">
+      <h1>Drip</h1>
+      <p>Admin Dashboard</p>
+    </div>
+    <nav>
+      <button class="nav-btn active" onclick="showTab('orders', this)">📋 Orders</button>
+      <button class="nav-btn" onclick="showTab('menu', this)">🍵 Menu Manager</button>
+      <button class="nav-btn" onclick="showTab('export', this)">📊 Export</button>
+    </nav>
+    <div class="sidebar-footer">
+      <button class="logout-btn" onclick="logout()">Sign Out</button>
+    </div>
+  </aside>
+
+  <main class="main-content">
+    <!-- ORDERS TAB -->
+    <div id="tab-orders" class="tab-panel active">
+      <div class="page-header">
+        <h1 class="page-title">Orders</h1>
+        <button onclick="fetchOrders()" style="padding:10px 18px; background:var(--admin-green); color:#fff; border:none; border-radius:8px; cursor:pointer; font-size:13px; font-weight:600;">↻ Refresh</button>
+      </div>
+      <div class="stats-row" id="stats-row">
+        <div class="stat-card"><div class="stat-label">Today's Orders</div><div class="stat-value" id="stat-today">—</div></div>
+        <div class="stat-card"><div class="stat-label">Pending</div><div class="stat-value" id="stat-pending">—</div></div>
+        <div class="stat-card"><div class="stat-label">Completed</div><div class="stat-value" id="stat-completed">—</div></div>
+        <div class="stat-card"><div class="stat-label">Today's Revenue</div><div class="stat-value" id="stat-revenue">—</div></div>
+      </div>
+      <div class="card">
+        <div class="card-header">
+          <h2 class="card-title">All Orders</h2>
+        </div>
+        <table>
+          <thead>
+            <tr>
+              <th>Order #</th>
+              <th>Customer</th>
+              <th>Pickup</th>
+              <th>Total</th>
+              <th>Status</th>
+              <th>Date</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody id="orders-tbody">
+            <tr><td colspan="7" style="text-align:center; color:#888; padding:32px;">Loading orders...</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- MENU TAB -->
+    <div id="tab-menu" class="tab-panel">
+      <div class="page-header">
+        <h1 class="page-title">Menu Manager</h1>
+      </div>
+      <div class="menu-manager-grid" id="menu-grid">
+        <div style="color:#888;">Loading menu...</div>
+      </div>
+    </div>
+
+    <!-- EXPORT TAB -->
+    <div id="tab-export" class="tab-panel">
+      <div class="page-header">
+        <h1 class="page-title">Export Orders</h1>
+      </div>
+      <div class="export-section">
+        <h3>Download Order History as CSV</h3>
+        <div class="export-group">
+          <label>From Date (optional)</label>
+          <input type="date" id="export-from">
+        </div>
+        <div class="export-group">
+          <label>To Date (optional)</label>
+          <input type="date" id="export-to">
+        </div>
+        <button class="export-btn" onclick="exportCSV()">⬇ Download CSV</button>
+      </div>
+    </div>
+  </main>
+</div>
+
+<script>
+  const token = () => localStorage.getItem('dripAdminToken');
+
+  // ── AUTH ──────────────────────────────────────────────────
+  if (token()) showDashboard();
+
+  document.getElementById('login-form').addEventListener('submit', async e => {
+    e.preventDefault();
+    const errEl = document.getElementById('login-error');
+    errEl.textContent = '';
+    const btn = e.target.querySelector('button');
+    btn.textContent = 'Signing in...';
+    btn.disabled = true;
+
+    try {
+      const res  = await fetch('/api/auth', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ username: document.getElementById('username').value, password: document.getElementById('password').value })
+      });
+      const data = await res.json();
+      if (data.success) {
+        localStorage.setItem('dripAdminToken', data.token);
+        showDashboard();
+      } else {
+        errEl.textContent = data.error || 'Login failed';
+      }
+    } catch { errEl.textContent = 'Connection error — is the server running?'; }
+
+    btn.textContent = 'Sign In';
+    btn.disabled = false;
+  });
+
+  function showDashboard() {
+    document.getElementById('login-wrap').style.display = 'none';
+    document.getElementById('dashboard').style.display = 'block';
+    fetchOrders();
+    fetchMenu();
+  }
+
+  function logout() {
+    localStorage.removeItem('dripAdminToken');
+    window.location.reload();
+  }
+
+  // ── TAB NAVIGATION ────────────────────────────────────────
+  function showTab(name, btn) {
+    document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+    document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+    document.getElementById(`tab-${name}`).classList.add('active');
+    btn.classList.add('active');
+  }
+
+  // ── ORDERS ────────────────────────────────────────────────
+  async function fetchOrders() {
+    const res = await fetch('/api/orders', { headers: { 'Authorization': 'Bearer ' + token() } });
+    if (res.status === 401) return logout();
+    const orders = await res.json();
+    renderOrders(orders);
+    renderStats(orders);
+  }
+
+  function renderStats(orders) {
+    const today = new Date().toDateString();
+    const todayOrders = orders.filter(o => new Date(o.created_at).toDateString() === today);
+    document.getElementById('stat-today').textContent = todayOrders.length;
+    document.getElementById('stat-pending').textContent = orders.filter(o => o.status === 'Pending').length;
+    document.getElementById('stat-completed').textContent = orders.filter(o => o.status === 'Completed').length;
+    document.getElementById('stat-revenue').textContent = '$' + todayOrders.reduce((s, o) => s + Number(o.total_amount), 0).toFixed(2);
+  }
+
+  function renderOrders(orders) {
+    const tbody = document.getElementById('orders-tbody');
+    if (!orders.length) {
+      tbody.innerHTML = '<tr><td colspan="7" style="text-align:center; color:#888; padding:32px;">No orders yet.</td></tr>';
+      return;
+    }
+    const badgeClass = s => ({'Pending':'badge-pending','Ready':'badge-ready','Completed':'badge-completed','Cancelled':'badge-cancelled'}[s] || 'badge-pending');
+    tbody.innerHTML = orders.map(o => `
+      <tr>
+        <td><strong>#${o.order_number || o.id.slice(0,6).toUpperCase()}</strong></td>
+        <td>
+          <div style="font-weight:600;">${o.customer_name}</div>
+          <div style="font-size:12px; color:#888;">${o.customer_email}</div>
+        </td>
+        <td><strong>${o.pickup_time}</strong></td>
+        <td><strong>$${Number(o.total_amount).toFixed(2)}</strong></td>
+        <td><span class="badge ${badgeClass(o.status)}">${o.status}</span></td>
+        <td style="font-size:12px; color:#888;">${new Date(o.created_at).toLocaleDateString()}</td>
+        <td>
+          <select class="status-select" onchange="updateStatus('${o.id}', this.value)">
+            ${['Pending','Ready','Completed','Cancelled'].map(s => `<option value="${s}" ${o.status===s?'selected':''}>${s}</option>`).join('')}
+          </select>
+        </td>
+      </tr>
+    `).join('');
+  }
+
+  async function updateStatus(id, status) {
+    await fetch('/api/orders', {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token() },
+      body: JSON.stringify({ id, status })
+    });
+    fetchOrders();
+  }
+
+  // ── MENU MANAGER ─────────────────────────────────────────
+  let menuItems = [];
+  async function fetchMenu() {
+    const res = await fetch('/api/menu');
+    menuItems = await res.json();
+    renderMenu(menuItems);
+  }
+
+  function renderMenu(items) {
+    const grid = document.getElementById('menu-grid');
+    if (!items.length) { grid.innerHTML = '<div style="color:#888;">No menu items found.</div>'; return; }
+    grid.innerHTML = items.map(item => `
+      <div class="menu-manager-card">
+        <div class="menu-manager-name">${item.name}</div>
+        <div class="menu-manager-category">${item.category}</div>
+        <div class="menu-manager-actions">
+          <input type="number" class="price-input" id="price-${item.id}" value="${Number(item.price).toFixed(2)}" step="0.25" min="0">
+          <button class="save-price-btn" onclick="savePrice('${item.id}', '${item.name}')">Save Price</button>
+        </div>
+        <label class="availability-toggle">
+          <label class="toggle-switch">
+            <input type="checkbox" id="avail-${item.id}" ${item.is_available ? 'checked' : ''} onchange="toggleAvailability('${item.id}', '${item.name}', this.checked)">
+            <span class="toggle-slider"></span>
+          </label>
+          <span id="avail-label-${item.id}">${item.is_available ? 'Available' : 'Sold Out'}</span>
+        </label>
+      </div>
+    `).join('');
+  }
+
+  async function savePrice(id, name) {
+    const price = parseFloat(document.getElementById(`price-${id}`).value);
+    if (isNaN(price)) return alert('Invalid price');
+    await fetch('/api/menu', {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token() },
+      body: JSON.stringify({ id, price })
+    });
+    alert(`Price updated for ${name}!`);
+    fetchMenu();
+  }
+
+  async function toggleAvailability(id, name, isAvailable) {
+    document.getElementById(`avail-label-${id}`).textContent = isAvailable ? 'Available' : 'Sold Out';
+    await fetch('/api/menu', {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token() },
+      body: JSON.stringify({ id, is_available: isAvailable })
+    });
+  }
+
+  // ── EXPORT ────────────────────────────────────────────────
+  function exportCSV() {
+    const from = document.getElementById('export-from').value;
+    const to   = document.getElementById('export-to').value;
+    let url = '/api/export';
+    const params = [];
+    if (from) params.push(`from=${from}`);
+    if (to)   params.push(`to=${to}`);
+    if (params.length) url += '?' + params.join('&');
+
+    const a = document.createElement('a');
+    a.href = url + (url.includes('?') ? '&' : '?') + `token=${token()}`;
+    a.click();
+  }
+</script>
+</body>
+</html>

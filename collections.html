@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Shop All — MISELA</title>
+  <meta name="description" content="Shop all Misela luxury handbags, scarves and accessories. Free shipping on orders over 5.000 TL."/>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600&family=Inter:wght@300;400;500&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"/>
+  <link rel="stylesheet" href="css/main.css"/>
+  <style>
+    .color-dot { width: 10px; height: 10px; border-radius: 50%; display: inline-block; margin-right: 6px; border: 1px solid rgba(0,0,0,0.1); }
+    .product-card-colors { display: flex; gap: 6px; padding: 0 12px 16px; }
+    .filter-panel {
+      position: fixed; top: 0; right: -380px; width: 380px; height: 100vh;
+      background: var(--bg); z-index: 300; padding: 100px 40px 40px;
+      border-left: 1px solid var(--border);
+      transition: right 0.4s cubic-bezier(0.16,1,0.3,1);
+      overflow-y: auto;
+    }
+    .filter-panel.open { right: 0; }
+    .filter-overlay {
+      position: fixed; inset: 0; background: rgba(0,0,0,0.3); z-index: 299;
+      opacity: 0; visibility: hidden; transition: opacity 0.3s, visibility 0.3s;
+    }
+    .filter-overlay.open { opacity: 1; visibility: visible; }
+    .filter-panel h3 { font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; margin-bottom: 24px; display: flex; justify-content: space-between; align-items: center; }
+    .filter-close { cursor: pointer; font-size: 20px; }
+    .filter-group { margin-bottom: 32px; border-top: 1px solid var(--border); padding-top: 24px; }
+    .filter-group h4 { font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; margin-bottom: 16px; }
+    .filter-option { display: flex; align-items: center; gap: 10px; padding: 6px 0; cursor: pointer; font-size: 13px; }
+    .filter-option input { accent-color: var(--cta); }
+    .load-more { display: flex; justify-content: center; padding: 60px 0 80px; }
+  </style>
+</head>
+<body>
+
+<!-- ANNOUNCEMENT BAR -->
+<div class="announcement-bar">
+  <div class="ticker-track">
+    <div class="ticker-inner">
+      <span>Enjoy Complimentary Monogramming with Code FORMOM</span>
+      <span>Personalize Your Mother's Day Gift</span>
+      <span>Enjoy Complimentary Monogramming with Code FORMOM</span>
+      <span>Personalize Your Mother's Day Gift</span>
+      <span>Enjoy Complimentary Monogramming with Code FORMOM</span>
+      <span>Personalize Your Mother's Day Gift</span>
+    </div>
+  </div>
+  <a href="about.html#stores" class="announcement-cta">Our Stores</a>
+</div>
+
+<!-- HEADER -->
+<header class="site-header">
+  <div class="nav-inner">
+    <a href="index.html" class="logo">MISELA</a>
+    <nav class="nav-left">
+      <div class="nav-item">
+        <a href="collections.html">CATALOG <span class="chevron">▾</span></a>
+        <div class="dropdown-menu">
+          <a href="collections.html">New Arrivals</a>
+          <a href="collections.html">Bags</a>
+          <a href="collections.html">Scarves & Accessories</a>
+          <a href="collections.html">Home</a>
+          <a href="collections.html">Travel</a>
+          <a href="collections.html">Sale</a>
+        </div>
+      </div>
+      <div class="nav-item">
+        <a href="collections.html">SHOP <span class="chevron">▾</span></a>
+        <div class="dropdown-menu">
+          <a href="collections.html">All Products</a>
+          <a href="collections.html">Tote Bags</a>
+          <a href="collections.html">Shoulder Bags</a>
+          <a href="collections.html">Crossbody</a>
+          <a href="collections.html">Clutches</a>
+          <a href="collections.html">Made to Order</a>
+        </div>
+      </div>
+      <div class="nav-item">
+        <a href="#">MY<span class="red">MI</span>SELA <span class="chevron">▾</span></a>
+        <div class="dropdown-menu">
+          <a href="#">MisLoyal Membership</a>
+          <a href="#">My Account</a>
+          <a href="#">Wishlist</a>
+          <a href="#">Order History</a>
+        </div>
+      </div>
+    </nav>
+    <div class="nav-right">
+      <span class="nav-flag">🇹🇷</span>
+      <a href="#" data-search>SEARCH</a>
+      <a href="#">LOG IN</a>
+      <a href="#">CART (0)</a>
+    </div>
+  <button class="hamburger" id="hamburger-btn" aria-label="Toggle menu" aria-expanded="false">
+    <span></span><span></span><span></span>
+  </button>
+  </div>
+</header>
+<!-- MOBILE NAV -->
+<nav class="mobile-nav" id="mobile-nav">
+  <a href="menu.html">Menu</a>
+  <a href="menu.html#drinks">Signature Drinks</a>
+  <a href="menu.html#coffee">Vietnamese Coffee</a>
+  <a href="menu.html#food">Bánh Mì &amp; Bites</a>
+  <a href="about.html">Our Story</a>
+  <a href="about.html#location">Location &amp; Hours</a>
+  <a href="https://www.instagram.com/dripvietcafe/" target="_blank">Instagram</a>
+  <a href="menu.html" class="mobile-nav-cta">Order Now →</a>
+</nav>
+
+<div class="search-overlay">
+  <div class="search-box">
+    <input class="search-input" type="text" placeholder="Search for products…"/>
+    <button class="search-close" aria-label="Close search">✕</button>
+  </div>
+</div>
+
+<div class="filter-overlay" id="filterOverlay"></div>
+<div class="filter-panel" id="filterPanel">
+  <h3>Filters <span class="filter-close" id="filterClose">✕</span></h3>
+  <div class="filter-group">
+    <h4>Category</h4>
+    <label class="filter-option"><input type="checkbox"/> Tote Bags</label>
+    <label class="filter-option"><input type="checkbox"/> Shoulder Bags</label>
+    <label class="filter-option"><input type="checkbox"/> Crossbody</label>
+    <label class="filter-option"><input type="checkbox"/> Clutches</label>
+    <label class="filter-option"><input type="checkbox"/> Scarves</label>
+    <label class="filter-option"><input type="checkbox"/> Accessories</label>
+  </div>
+  <div class="filter-group">
+    <h4>Colour</h4>
+    <label class="filter-option"><input type="checkbox"/> <span class="color-dot" style="background:#2e4a3a;"></span> Pine Green</label>
+    <label class="filter-option"><input type="checkbox"/> <span class="color-dot" style="background:#8b4a2a;"></span> Terracotta</label>
+    <label class="filter-option"><input type="checkbox"/> <span class="color-dot" style="background:#1a1a18;"></span> Black</label>
+    <label class="filter-option"><input type="checkbox"/> <span class="color-dot" style="background:#c8b89a;"></span> Camel</label>
+    <label class="filter-option"><input type="checkbox"/> <span class="color-dot" style="background:#e8e5df;"></span> Ecru</label>
+    <label class="filter-option"><input type="checkbox"/> <span class="color-dot" style="background:#6b2c2c;"></span> Burgundy</label>
+  </div>
+  <div class="filter-group">
+    <h4>Size</h4>
+    <label class="filter-option"><input type="checkbox"/> XS</label>
+    <label class="filter-option"><input type="checkbox"/> S</label>
+    <label class="filter-option"><input type="checkbox"/> M</label>
+    <label class="filter-option"><input type="checkbox"/> L</label>
+  </div>
+  <div style="padding-top:24px;">
+    <button class="btn" style="width:100%;justify-content:center;" onclick="document.getElementById('filterPanel').classList.remove('open');document.getElementById('filterOverlay').classList.remove('open');">Apply Filters</button>
+  </div>
+</div>
+
+<main class="page-body">
+  <div class="collections-header">
+    <p class="breadcrumb"><a href="index.html">Home</a> / All</p>
+    <h1 class="page-title serif">All</h1>
+  </div>
+
+  <div class="collection-toolbar">
+    <button class="filter-btn" id="filterToggle">Filters</button>
+    <select class="sort-select" aria-label="Sort by">
+      <option>Sort By: Date, New to Old</option>
+      <option>Sort By: Price, Low to High</option>
+      <option>Sort By: Price, High to Low</option>
+      <option>Sort By: Best Selling</option>
+      <option>Sort By: Alphabetically A–Z</option>
+    </select>
+  </div>
+
+  <div class="product-grid">
+    <!-- Row 1 -->
+    <a href="product.html" class="product-card reveal">
+      <div class="product-card-img"><img src="https://images.unsplash.com/photo-1591561954557-26941169b49e?w=700&auto=format&fit=crop&q=80" alt="Dakota At Los Angeles"/></div>
+      <div class="product-card-info"><div class="product-card-name">Dakota At Los Angeles</div><div class="product-card-price">36.000 TL</div></div>
+      <div class="product-card-colors"><span class="color-dot" style="background:#2e4a3a;"></span><span class="color-dot" style="background:#1a1a18;"></span><span class="color-dot" style="background:#8b4a2a;"></span></div>
+    </a>
+    <a href="product.html" class="product-card reveal">
+      <div class="product-card-img"><img src="https://images.unsplash.com/photo-1548036328-c9fa89d128fa?w=700&auto=format&fit=crop&q=80" alt="Nora At Anatolia"/></div>
+      <div class="product-card-info"><div class="product-card-name">Nora At Anatolia</div><div class="product-card-price">28.000 TL</div></div>
+      <div class="product-card-colors"><span class="color-dot" style="background:#c8b89a;"></span><span class="color-dot" style="background:#1a1a18;"></span></div>
+    </a>
+    <a href="product.html" class="product-card reveal">
+      <div class="product-card-img"><img src="https://images.unsplash.com/photo-1590874103328-eac38a683ce7?w=700&auto=format&fit=crop&q=80" alt="Serra Mini"/></div>
+      <div class="product-card-info"><div class="product-card-name">Serra Mini</div><div class="product-card-price">18.000 TL</div></div>
+      <div class="product-card-colors"><span class="color-dot" style="background:#8b4a2a;"></span><span class="color-dot" style="background:#6b2c2c;"></span><span class="color-dot" style="background:#e8e5df;"></span></div>
+    </a>
+    <!-- Row 2 -->
+    <a href="product.html" class="product-card reveal">
+      <div class="product-card-img"><img src="https://images.unsplash.com/photo-1601924921557-45e6dea0a157?w=700&auto=format&fit=crop&q=80" alt="Anatolia Silk Scarf"/></div>
+      <div class="product-card-info"><div class="product-card-name">Anatolia Silk Scarf</div><div class="product-card-price">8.500 TL</div></div>
+      <div class="product-card-colors"><span class="color-dot" style="background:#c8b89a;"></span><span class="color-dot" style="background:#6b2c2c;"></span></div>
+    </a>
+    <a href="product.html" class="product-card reveal">
+      <div class="product-card-img"><img src="https://images.unsplash.com/photo-1584917865442-de89df76afd3?w=700&auto=format&fit=crop&q=80" alt="Istanbul Shoulder Bag"/></div>
+      <div class="product-card-info"><div class="product-card-name">Istanbul Shoulder Bag</div><div class="product-card-price">24.000 TL</div></div>
+      <div class="product-card-colors"><span class="color-dot" style="background:#1a1a18;"></span><span class="color-dot" style="background:#c8b89a;"></span></div>
+    </a>
+    <a href="product.html" class="product-card reveal">
+      <div class="product-card-img"><img src="https://images.unsplash.com/photo-1547949003-9792a18a2601?w=700&auto=format&fit=crop&q=80" alt="Bosphorus Tote"/></div>
+      <div class="product-card-info"><div class="product-card-name">Bosphorus Tote</div><div class="product-card-price">32.000 TL</div></div>
+      <div class="product-card-colors"><span class="color-dot" style="background:#2e4a3a;"></span><span class="color-dot" style="background:#c8b89a;"></span><span class="color-dot" style="background:#8b4a2a;"></span></div>
+    </a>
+    <!-- Row 3 -->
+    <a href="product.html" class="product-card reveal">
+      <div class="product-card-img"><img src="https://images.unsplash.com/photo-1548036328-c9fa89d128fa?w=700&auto=format&fit=crop&q=80&hue=30" alt="Galata Crossbody"/></div>
+      <div class="product-card-info"><div class="product-card-name">Galata Crossbody</div><div class="product-card-price">16.500 TL</div></div>
+      <div class="product-card-colors"><span class="color-dot" style="background:#6b2c2c;"></span><span class="color-dot" style="background:#1a1a18;"></span></div>
+    </a>
+    <a href="product.html" class="product-card reveal">
+      <div class="product-card-img"><img src="https://images.unsplash.com/photo-1591561954557-26941169b49e?w=700&auto=format&fit=crop&q=80&sat=-80" alt="Dakota At Los Angeles — Noir"/></div>
+      <div class="product-card-info"><div class="product-card-name">Dakota At Los Angeles — Noir</div><div class="product-card-price">36.000 TL</div></div>
+      <div class="product-card-colors"><span class="color-dot" style="background:#1a1a18;"></span></div>
+    </a>
+    <a href="product.html" class="product-card reveal">
+      <div class="product-card-img"><img src="https://images.unsplash.com/photo-1590874103328-eac38a683ce7?w=700&auto=format&fit=crop&q=80&sat=-80" alt="Serra Mini — Ecru"/></div>
+      <div class="product-card-info"><div class="product-card-name">Serra Mini — Ecru</div><div class="product-card-price">18.000 TL</div></div>
+      <div class="product-card-colors"><span class="color-dot" style="background:#e8e5df;"></span></div>
+    </a>
+  </div>
+
+  <div class="load-more">
+    <button class="btn btn-outline" style="padding:16px 48px;">Load More</button>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <div class="footer-grid">
+    <div class="footer-col"><h4>Misela</h4><ul><li><a href="about.html">About MISELA</a></li><li><a href="collections.html">Made to Order</a></li><li><a href="#">Stores</a></li><li><a href="#">Press</a></li></ul></div>
+    <div class="footer-col"><h4>Customer Service</h4><ul><li><a href="#">MisLoyal Membership</a></li><li><a href="#">Terms &amp; Conditions</a></li><li><a href="#">Privacy Policy</a></li><li><a href="#">Delivery &amp; Returns</a></li><li><a href="#">Product Care</a></li><li><a href="#">FAQs</a></li></ul></div>
+    <div class="footer-col"><h4>Contact</h4><p>WhatsApp: <a href="tel:+905495860700">+90 549 586 07 00</a><br/>Email: <a href="mailto:customercare@misela.com">customercare@misela.com</a></p></div>
+    <div class="footer-col"><h4>Misela News</h4><p class="footer-newsletter-text">Join our newsletter to discover the timeless world of Misela.</p><form class="newsletter-form" onsubmit="return false;"><input class="newsletter-input" type="email" placeholder="Email address"/><button class="newsletter-btn">Subscribe</button></form><div class="newsletter-check"><input type="checkbox" id="nl2"/><label for="nl2">I agree to the <a href="#">terms and conditions</a>.</label></div><div class="social-row"><a href="#" class="social-icon">f</a><a href="#" class="social-icon">&#9679;</a><a href="#" class="social-icon">&#9654;</a><a href="#" class="social-icon">𝕏</a></div></div>
+  </div>
+  <div class="footer-bottom">Copyright &copy; 2026 Designed by <a href="#">Two Peas Studio</a> &amp; <a href="#">DigiFist</a>.</div>
+</footer>
+
+<button class="scroll-top" aria-label="Scroll to top">↑</button>
+<button class="chat-bubble" aria-label="Open chat">💬</button>
+
+<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+<script src="js/main.js"></script>
+<script>
+  const filterToggle = document.getElementById('filterToggle');
+  const filterPanel  = document.getElementById('filterPanel');
+  const filterOverlay= document.getElementById('filterOverlay');
+  const filterClose  = document.getElementById('filterClose');
+  filterToggle?.addEventListener('click', () => { filterPanel.classList.add('open'); filterOverlay.classList.add('open'); });
+  filterClose?.addEventListener('click',  () => { filterPanel.classList.remove('open'); filterOverlay.classList.remove('open'); });
+  filterOverlay?.addEventListener('click',() => { filterPanel.classList.remove('open'); filterOverlay.classList.remove('open'); });
+</script>
+<script>
+(function() {
+  var btn = document.getElementById('hamburger-btn');
+  var nav = document.getElementById('mobile-nav');
+  if (!btn || !nav) return;
+  btn.addEventListener('click', function() {
+    var open = nav.classList.toggle('open');
+    btn.classList.toggle('open', open);
+    btn.setAttribute('aria-expanded', String(open));
+  });
+  nav.querySelectorAll('a').forEach(function(a) {
+    a.addEventListener('click', function() {
+      nav.classList.remove('open');
+      btn.classList.remove('open');
+      btn.setAttribute('aria-expanded', 'false');
+    });
+  });
+})();
+</script>
+</body>
+</html>
