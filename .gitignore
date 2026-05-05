@@ -4,3 +4,7 @@ node_modules/
 *.db-journal
 .vercel/
 dist/
+
+*.db
+*.db-journal
+dripviet.db
