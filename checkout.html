@@ -166,9 +166,10 @@
     try { cart = JSON.parse(localStorage.getItem('dripCart')) || []; } catch {}
 
     if (cart.length === 0) {
-      alert('Your cart is empty!');
-      window.location.href = 'menu.html';
+      // Silently redirect — no blocking alert on mobile
+      window.location.replace('menu.html');
     }
+
 
     // ── Render order summary ──────────────────────────────────
     const summaryEl = document.getElementById('summary-items');
@@ -260,14 +261,18 @@
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ amount: total, customer_email: email, customer_name: `${firstName} ${lastName}` })
         });
-        const { clientSecret, paymentIntentId, error: intentErr } = await intentRes.json();
+        const { clientSecret, paymentIntentId: intentId, error: intentErr } = await intentRes.json();
         if (intentErr) throw new Error(intentErr);
 
-        // 2. Confirm Stripe payment
-        const { paymentIntent, error: stripeErr } = await stripe.confirmCardPayment(clientSecret, {
-          payment_method: { card: cardEl, billing_details: { name: `${firstName} ${lastName}`, email } }
-        });
-        if (stripeErr) throw new Error(stripeErr.message);
+        // 2. Confirm Stripe payment (skip in demo mode)
+        let paymentIntentId = intentId;
+        if (!clientSecret.startsWith('demo_secret_')) {
+          const { paymentIntent, error: stripeErr } = await stripe.confirmCardPayment(clientSecret, {
+            payment_method: { card: cardEl, billing_details: { name: `${firstName} ${lastName}`, email } }
+          });
+          if (stripeErr) throw new Error(stripeErr.message);
+          paymentIntentId = paymentIntent.id;
+        }
 
         // 3. Submit order to our backend
         const orderRes = await fetch('/api/orders', {
