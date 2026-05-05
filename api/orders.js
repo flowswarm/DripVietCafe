@@ -2,20 +2,23 @@ const { supabase } = require('../lib/supabase');
 const { verifyAdmin } = require('../lib/auth');
 const { sendCustomerConfirmation, sendAdminOrderAlert } = require('../lib/email');
 
+// Check if Supabase is configured
+const hasSupabase = !!(process.env.SUPABASE_URL && process.env.SUPABASE_SERVICE_ROLE_KEY);
+
 module.exports = async function handler(req, res) {
   if (req.method === 'OPTIONS') return res.status(200).end();
 
   // ── GET /api/orders ── admin only, returns all orders
   if (req.method === 'GET') {
+    if (!hasSupabase) {
+      return res.status(200).json([]); // Demo: empty order list
+    }
     const admin = verifyAdmin(req);
     if (!admin) return res.status(401).json({ error: 'Unauthorized' });
 
     const { data: orders, error } = await supabase
       .from('orders')
-      .select(`
-        *,
-        order_items (*)
-      `)
+      .select(`*, order_items (*)`)
       .order('created_at', { ascending: false });
 
     if (error) return res.status(500).json({ error: error.message });
@@ -28,6 +31,17 @@ module.exports = async function handler(req, res) {
 
     if (!customer_name || !customer_email || !pickup_time || !items?.length)
       return res.status(400).json({ error: 'Missing required fields' });
+
+    // ── Demo mode: no Supabase configured ────────────────────────
+    if (!hasSupabase) {
+      console.log('[Demo Mode] Order skipped (no Supabase) — returning mock confirmation');
+      return res.status(201).json({
+        success: true,
+        orderId: 'demo-' + Date.now(),
+        orderNumber: 'DEMO-' + Math.floor(1000 + Math.random() * 9000),
+        demo: true
+      });
+    }
 
     try {
       // Insert order

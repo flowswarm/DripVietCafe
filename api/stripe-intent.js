@@ -4,19 +4,27 @@ module.exports = async function handler(req, res) {
   if (req.method === 'OPTIONS') return res.status(200).end();
   if (req.method !== 'POST') return res.status(405).json({ error: 'Method not allowed' });
 
-  const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
   const { amount, customer_email, customer_name } = req.body;
-
   if (!amount || amount <= 0)
     return res.status(400).json({ error: 'Valid amount required' });
 
+  // ── Demo mode: no Stripe key configured ──────────────────────
+  if (!process.env.STRIPE_SECRET_KEY) {
+    console.log('[Demo Mode] Stripe skipped — returning mock payment intent');
+    return res.status(200).json({
+      clientSecret: 'demo_secret_' + Date.now(),
+      paymentIntentId: 'demo_pi_' + Date.now(),
+      demo: true
+    });
+  }
+
   try {
+    const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
     const paymentIntent = await stripe.paymentIntents.create({
-      amount: Math.round(amount * 100), // Convert to cents
+      amount: Math.round(amount * 100),
       currency: 'usd',
       receipt_email: customer_email,
       metadata: { customer_name, source: 'drip-viet-cafe-web' },
-      // Allow the following payment methods
       automatic_payment_methods: { enabled: true }
     });
 

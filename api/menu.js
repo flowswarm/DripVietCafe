@@ -2,11 +2,19 @@ const { supabase } = require('../lib/supabase');
 const { verifyAdmin } = require('../lib/auth');
 const { sendSoldOutAlert, sendPriceUpdateAlert } = require('../lib/email');
 
+const hasSupabase = !!(process.env.SUPABASE_URL && process.env.SUPABASE_SERVICE_ROLE_KEY);
+
 module.exports = async function handler(req, res) {
   if (req.method === 'OPTIONS') return res.status(200).end();
 
   // ── GET /api/menu ── public, returns all menu items
   if (req.method === 'GET') {
+    // Demo mode: Supabase not configured, return empty array
+    // (menu.html uses hardcoded cards, so this is fine)
+    if (!hasSupabase) {
+      return res.status(200).json([]);
+    }
+
     const { data, error } = await supabase
       .from('menu_items')
       .select('*')
