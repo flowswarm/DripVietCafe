@@ -600,8 +600,8 @@ h1, h2, h3 { font-family: 'Playfair Display', serif; font-weight: 400; }
 
 @media (max-width: 640px) {
   .mobile-ig-posts { display: flex; flex-direction: column; gap: 1px; background: var(--border, #e8e2d8); overflow: hidden; }
-  .mobile-ig-posts iframe { width: 100%; height: 50vw; border: none; display: block; background: #faf7f2; flex-shrink: 0; }
+  .mobile-ig-posts img { width: 100%; height: 50vw; display: block; background: #faf7f2; flex-shrink: 0; object-fit: cover; }
   .mobile-banner-reel { display: block; position: absolute; inset: 0; z-index: 0; overflow: hidden; background: #000; }
-  .mobile-banner-reel iframe { width: 100%; height: 177.78%; min-height: 100%; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); border: none; pointer-events: none; }
+  .mobile-banner-reel video { width: 100%; height: 100%; object-fit: cover; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); pointer-events: none; }
   .has-mobile-reel .banner-bg.multi-image { display: none; }
 }
