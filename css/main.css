@@ -488,14 +488,16 @@ h1, h2, h3 { font-family: 'Playfair Display', serif; font-weight: 400; }
 
   /* ── SPLIT SECTION ── */
   .split { grid-template-columns: 1fr; }
-  .split-img { aspect-ratio: 4/3; }
+  .split-img { aspect-ratio: 3/4; }
+  .split-img.ig-crop img, .split-img.ig-crop:hover img { transform: scale(1); object-position: center; }
   .split-content { padding: 40px 24px; }
   .split-content h2 { font-size: clamp(24px, 6vw, 36px); }
   .split-content p  { font-size: 13px; }
 
   /* ── LOOKBOOK ── */
   .lookbook { grid-template-columns: 1fr; }
-  .lookbook-cell { aspect-ratio: 4/3; }
+  .lookbook-cell { aspect-ratio: 3/4; }
+  .lookbook-cell.ig-crop img, .lookbook-cell.ig-crop:hover img { transform: scale(1); object-position: center; }
 
   /* ── BANNER ── */
   .banner { min-height: 60vh; align-items: flex-end; }
